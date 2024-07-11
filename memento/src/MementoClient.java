@@ -1,5 +1,6 @@
 import mementopattern.Memento;
 import mementopattern.Originator;
+import texteditor.Editor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,20 @@ public class MementoClient {
         // restoring to any specified checkpoint
         System.out.println("\nRestoring to Snapshot #1.");
         originator.restore(savedMementos.get(1));
+
+        /*
+        * In the next code it shows the Memento Pattern with a different approach.
+        * The Originator (TextArea class) has an inner Memento class and
+        * the necessary methods to take snapshots when a string/text is passed in
+        * the write() method in the Caretaker (Editor class).
+        * The caretaker does not know how the memento works, so the
+        * encapsulation is intact.
+        * */
+        Editor editor = new Editor();
+        editor.write("Hi! I'm Héctor Cortez");
+        editor.write("I'm a Java developer");
+        editor.write("And I can do cool stuff");
+        editor.undo();
     }
 
     private static void saveSnapShot(Originator originator,
