@@ -1,8 +1,12 @@
+import implementation_1.Visitor;
 import implementation_1.*;
 import implementation_2.Employee;
 import implementation_2.JuniorEmployee;
 import implementation_2.PromotionCheckerVisitor;
 import implementation_2.SeniorEmployee;
+import implementation_3.*;
+
+import java.util.List;
 
 public class VisitorClient {
     public static void main(String[] args) {
@@ -14,7 +18,9 @@ public class VisitorClient {
         System.out.println("\nTesting the DoubleMakerVisitor now.");
         visitor = new DoubleMakerVisitor();
         targetInteger.acceptVisitor(visitor);
+
         System.out.println();
+
         System.out.println("*** Visitor Pattern with Composite Pattern Demonstration 2 ***");
         Employee hodMath = formMathDept();
         Employee hodCompSc = formComputerScDept();
@@ -23,6 +29,18 @@ public class VisitorClient {
         implementation_2.Visitor collegeVisitor = new PromotionCheckerVisitor();
         System.out.println("\nChecking potential candidates for the promotion:");
         visitCandidates(principal, collegeVisitor);
+
+        System.out.println();
+
+        System.out.println("*** Visitor Pattern Demonstration 3 ***");
+        List<Client> clients = List.of(
+                new Restaurant("Pepe's Pizza", "St. Ive", "123"),
+                new Resident("Armando Cortez", "Kepler", "196"),
+                new Company("ABC Ltd.", "Hollywood", "13"),
+                new Bank("Santander", "Malaga", "97")
+        );
+        implementation_3.Visitor insuranceMsgVisitor = new InsuranceMessagingVisitor();
+        ((InsuranceMessagingVisitor) insuranceMsgVisitor).sendInsuranceMail(clients);
     }
 
     /*
