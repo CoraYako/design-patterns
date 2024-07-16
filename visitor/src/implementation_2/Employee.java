@@ -1,6 +1,8 @@
 package implementation_2;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Employee {
@@ -34,8 +36,8 @@ public abstract class Employee {
         return name;
     }
 
-    public List<Employee> getSubordinates() {
-        return subordinates;
+    public Collection<Employee> getSubordinates() {
+        return Collections.emptyList();
     }
 
     public abstract void acceptVisitor(Visitor visitor);

@@ -4,9 +4,6 @@ import implementation_2.JuniorEmployee;
 import implementation_2.PromotionCheckerVisitor;
 import implementation_2.SeniorEmployee;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class VisitorClient {
     public static void main(String[] args) {
         System.out.println("*** Visitor Pattern Demonstration 1 ***\n");
@@ -23,8 +20,9 @@ public class VisitorClient {
         Employee hodCompSc = formComputerScDept();
         Employee principal = formPrincipal(hodMath, hodCompSc);
         printCollegeStructure(principal);
-        List<Employee> participants = createContainer(principal, hodMath, hodCompSc);
-        checkPromotionEligibilty(participants);
+        implementation_2.Visitor collegeVisitor = new PromotionCheckerVisitor();
+        System.out.println("\nChecking potential candidates for the promotion:");
+        visitCandidates(principal, collegeVisitor);
     }
 
     /*
@@ -67,25 +65,8 @@ public class VisitorClient {
         return principal;
     }
 
-    private static List<Employee> createContainer(Employee principal, Employee hodMath, Employee hodCompSc) {
-        List<Employee> employeeContainer = new ArrayList<>();
-        // For employees who directly report to Principal
-        employeeContainer.addAll(principal.getSubordinates());
-        // For employees who directly reports to HOD(Math)
-        employeeContainer.addAll(hodMath.getSubordinates());
-        // For employees who directly reports to
-        // HOD(Comp.Sc)
-        employeeContainer.addAll(hodCompSc.getSubordinates());
-        return employeeContainer;
-    }
-
-    private static void checkPromotionEligibilty(List<Employee> container) {
-        implementation_2.Visitor visitor = new PromotionCheckerVisitor();
-        // Principal holds the highest position.
-        // He does not need a promotion.
-        System.out.println("\nChecking the eligible candidates for a promotion.");
-        for (Employee emp : container) {
-            emp.acceptVisitor(visitor);
-        }
+    private static void visitCandidates(Employee emp, implementation_2.Visitor visitor) {
+        emp.acceptVisitor(visitor);
+        emp.getSubordinates().forEach(e -> visitCandidates(e, visitor));
     }
 }

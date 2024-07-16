@@ -1,5 +1,7 @@
 package implementation_2;
 
+import java.util.Collection;
+
 public class SeniorEmployee extends Employee {
     public SeniorEmployee(String name, String designation, double experience) {
         super(name, designation, experience);
@@ -37,5 +39,10 @@ public class SeniorEmployee extends Employee {
     @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visitTheElement(this);
+    }
+
+    @Override
+    public Collection<Employee> getSubordinates() {
+        return subordinates;
     }
 }
